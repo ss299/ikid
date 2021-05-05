@@ -9,29 +9,24 @@ import UIKit
 
 class PunsViewController: UIViewController {
 
+    @IBOutlet weak var jokeLabel: UILabel!
     var dadJokesPunch: PunsQuestion! = nil
     var theRealPunch: PunsAnswer! = nil
     var counter1: Int = 1
 
-//    var mainDad: DadJokesViewController!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        firstBuilder()
-//        secondBuilder()
 
         switchViewController(nil, to : dadJokesPunch)
         
-        // Do any additional setup aftwer loading the view.
     }
     
 
     @IBAction func flipPunJoke(_ sender: Any) {
         firstBuilder()
         secondBuilder()
-        NSLog("flip was pushed")
-//
+
         UIView.beginAnimations("View Flip", context: nil)
         UIView.setAnimationDuration(0.4)
         UIView.setAnimationCurve(.easeInOut)
@@ -40,13 +35,14 @@ class PunsViewController: UIViewController {
             dadJokesPunch?.view.superview != nil {
             UIView.setAnimationTransition(.flipFromRight, for: view, cache: true)
             theRealPunch.view.frame = view.frame
+            jokeLabel.text = "What do you call the wife of a hippie?"
             switchViewController(dadJokesPunch, to: theRealPunch)
         } else {
             UIView.setAnimationTransition(.flipFromLeft, for: view, cache: true)
             dadJokesPunch.view.frame = view.frame
+            jokeLabel.text = "A Mississippi!"
             switchViewController(theRealPunch, to: dadJokesPunch)
         }
-        
 
         UIView.commitAnimations()
     }
@@ -80,18 +76,4 @@ class PunsViewController: UIViewController {
                     .instantiateViewController(withIdentifier: "punsAnswer") as? PunsAnswer
         }
     }
-
-    
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

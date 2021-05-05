@@ -12,42 +12,41 @@ class DadJokesViewController: UIViewController {
     var dadJokesPunch: DadJokesPunchLine! = nil
     var theRealPunch: RealPunchViewController! = nil
     var counter1: Int = 1
-
-//    var mainDad: DadJokesViewController!
-
+    @IBOutlet weak var dadJokeText: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        firstBuilder()
-//        secondBuilder()
 
         switchViewController(nil, to : dadJokesPunch)
         
-        // Do any additional setup aftwer loading the view.
     }
     
 
     @IBAction func flipDadJoke(_ sender: UIButton) {
         firstBuilder()
         secondBuilder()
-        NSLog("flip was pushed")
-//
+        
         UIView.beginAnimations("View Flip", context: nil)
         UIView.setAnimationDuration(0.4)
         UIView.setAnimationCurve(.easeInOut)
         
         if dadJokesPunch != nil &&
             dadJokesPunch?.view.superview != nil {
+            
             UIView.setAnimationTransition(.flipFromRight, for: view, cache: true)
             theRealPunch.view.frame = view.frame
+            dadJokeText.text = "What’s an astronaut’s favorite part of a computer?"
             switchViewController(dadJokesPunch, to: theRealPunch)
+            
         } else {
+            
             UIView.setAnimationTransition(.flipFromLeft, for: view, cache: true)
             dadJokesPunch.view.frame = view.frame
+            dadJokeText.text = "The space bar."
+            
             switchViewController(theRealPunch, to: dadJokesPunch)
         }
         
-
         UIView.commitAnimations()
     }
     
@@ -66,9 +65,7 @@ class DadJokesViewController: UIViewController {
         }
 
     fileprivate func firstBuilder() {
-        print("Wassup bro")
          if dadJokesPunch == nil {
-            print("I made it bro")
              dadJokesPunch =
                  storyboard?
                      .instantiateViewController(withIdentifier: "PunchLine")
@@ -77,27 +74,11 @@ class DadJokesViewController: UIViewController {
     }
     
     fileprivate func secondBuilder() {
-        print("Okay bro")
         if theRealPunch == nil {
-            print("Me too bro")
             theRealPunch =
                 storyboard?
                     .instantiateViewController(withIdentifier: "realPunch")
                 as! RealPunchViewController
         }
     }
-
-    
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

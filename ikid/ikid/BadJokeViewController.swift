@@ -9,21 +9,14 @@ import UIKit
 
 class BadJokeViewController: UIViewController {
 
+    @IBOutlet weak var joke: UILabel!
     var dadJokesPunch: BadQuestions! = nil
     var theRealPunch: BadAnswer! = nil
     var counter1: Int = 1
 
-//    var mainDad: DadJokesViewController!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        firstBuilder()
-//        secondBuilder()
-
-       // switchViewController(nil, to : dadJokesPunch)
-        
-        // Do any additional setup aftwer loading the view.
     }
     
 
@@ -33,20 +26,26 @@ class BadJokeViewController: UIViewController {
             firstBuilder()
             secondBuilder()
             NSLog("flip was pushed")
-    //
+
             UIView.beginAnimations("View Flip", context: nil)
             UIView.setAnimationDuration(0.4)
             UIView.setAnimationCurve(.easeInOut)
             
             if dadJokesPunch != nil &&
                 dadJokesPunch?.view.superview != nil {
+                
                 UIView.setAnimationTransition(.flipFromRight, for: view, cache: true)
                 theRealPunch.view.frame = view.frame
+                joke.text = "Why was the math teacher late to work?"
                 switchViewController(dadJokesPunch, to: theRealPunch)
+                
             } else {
+                
                 UIView.setAnimationTransition(.flipFromLeft, for: view, cache: true)
                 dadJokesPunch.view.frame = view.frame
+                joke.text = "She took the rhombus."
                 switchViewController(theRealPunch, to: dadJokesPunch)
+                
             }
             
 
@@ -82,17 +81,4 @@ class BadJokeViewController: UIViewController {
                     .instantiateViewController(withIdentifier: "badAnswer") as! BadAnswer
         }
     }
-
-    
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
